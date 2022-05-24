@@ -15,7 +15,7 @@ class MyUser(models.Model):
 
 class Product(models.Model):
     product_name = models.CharField(max_length=254, default= None)
-    product_code = models.CharField(max_length=16,null=True,blank=True)
+    product_code = models.CharField(max_length=16,null=True,blank=True,editable=False)
     description = models.TextField()
     quantity = models.IntegerField(default=0)
     price = models.FloatField(default=0)
@@ -34,15 +34,15 @@ class Invoice(models.Model):
     invoice_number = models.CharField(max_length=254,default=None,null=True,blank=True,editable=False)
     product_code = models.ForeignKey(Product,on_delete=models.PROTECT)
     quantity = models.IntegerField(default=0)
-    total_amount = models.FloatField(default=0,null=True,blank=True)
+    total_amount = models.FloatField(default=0,null=True,blank=True,editable=False)
     invoice_date_time = models.DateTimeField()
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.customer.user.username +" "+self.invoice_number
-    def save(self,*args, **kwargs):
-        self.invoice_number = (self.created_at).strftime('%Y%m%d%H%M').upper()+str(self.pk)
-        self.total_amount = self.quantity*self.product_code.price
-        super(Invoice, self).save(*args, **kwargs)
+    # def save(self,*args, **kwargs):
+    #     self.invoice_number = (self.created_at).strftime('%Y%m%d%H%M').upper()+str(self.pk)
+    #     self.total_amount = self.quantity*self.product_code.price
+    #     super(Invoice, self).save(*args, **kwargs)
     
 
 
