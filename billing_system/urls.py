@@ -32,5 +32,6 @@ urlpatterns = [
     path('', include(router.urls)),
     path('',views.index),
     path("fetch/",views.fetch_details),
-    path('api-auth/', include('rest_framework.urls'))
+    path('api-auth/', include('rest_framework.urls')),
+    path('fetch_by_date/',views.fetch_by_date)
 ]
